@@ -431,17 +431,17 @@
                 await pyodide.loadPackage(['numpy', 'scipy']);
 
                 // Cargar calculos.py y web_main.py al sistema de archivos virtual
-                mostrarOverlay('Cargando módulos...', 'calculos.py y web_main.py');
+                mostrarOverlay('Cargando módulos...', 'calculos.py y web_bridge.py');
 
                 const respCalculos = await fetch('calculos.py');
                 if (!respCalculos.ok) throw new Error('No se pudo descargar calculos.py');
                 const codigoCalculos = await respCalculos.text();
                 pyodide.FS.writeFile('calculos.py', codigoCalculos);
 
-                const respWebMain = await fetch('web_main.py');
-                if (!respWebMain.ok) throw new Error('No se pudo descargar web_main.py');
+                const respWebMain = await fetch('web_bridge.py');
+                if (!respWebMain.ok) throw new Error('No se pudo descargar web_bridge.py');
                 const codigoWebMain = await respWebMain.text();
-                pyodide.FS.writeFile('web_main.py', codigoWebMain);
+                pyodide.FS.writeFile('web_bridge.py', codigoWebMain);
 
                 pyodideReady = true;
                 ocultarOverlay();
@@ -488,9 +488,9 @@
                 const paramsJSON = JSON.stringify(params);
                 const resultadoJSON = pyodide.runPython(`
                     import json
-                    import web_main
+                    import web_bridge
                     params = json.loads('${paramsJSON.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}')
-                    result = web_main.ejecutar_simulacion(params)
+                    result = web_bridge.ejecutar_simulacion(params)
                     json.dumps(result)
                 `);
                 const resultado = JSON.parse(resultadoJSON);

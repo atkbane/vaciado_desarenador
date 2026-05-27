@@ -71,9 +71,11 @@ La transición entre régimen de orificio y vertedero se hace de forma continua 
 
 ```
 vaciado_desarenador/
-├── calculos.py      # Lógica hidráulica (caudal, solver ODE)
-├── web_main.py      # Puente Python/Pyodide para la web
-├── index.html       # Interfaz web
+├── calculos.py        # Lógica hidráulica (caudal, solver ODE)
+├── web_bridge.py      # Puente Python/Pyodide para la web
+├── interfaz.py        # Interfaz gráfica de escritorio (PySide6)
+├── run_desktop.py     # Punto de entrada para la app de escritorio
+├── index.html         # Interfaz web
 ├── .gitignore
 ├── LICENSE
 └── README.md
